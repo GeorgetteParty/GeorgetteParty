@@ -1,0 +1,11 @@
+# Goutte
+.directory
+.idea/*
+
+# Apple
+.DS_Store
+
+# Silex
+cache/*
+vendor/*
+composer.phar
