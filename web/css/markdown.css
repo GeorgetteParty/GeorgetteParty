@@ -17,11 +17,9 @@ h1, h2, h3, h4, h5, p {
 h1 {
     font-size: 48px;
     margin-bottom: 34px;
-    font-family: 'bleeding_cowboysregular', Georgia, Palatino, serif;
 }
 h2 {
     font-size: 36px;
-    font-family: 'bleeding_cowboysregular', Georgia, Palatino, serif;
     /* The bottom margin is small. It's designed to be used with gray meta text
      * below a post title. */
     margin: 35px 0 30px 0;
@@ -118,12 +116,21 @@ hr {
 
 }
 
+h1, h2 {
+  font-family: 'bleeding_cowboysregular', Georgia, Palatino, serif;
+  text-shadow: rgba(84, 0, 0, 0.6) 0 1px 2px
+}
+
 
 div.elfic {
-    font-family: 'bleeding_cowboysregular', Georgia, Palatino, serif;
-    padding: 0 24px;
-    white-space: pre;
-    line-height: 2;
+  font-family: 'bleeding_cowboysregular', Georgia, Palatino, serif;
+  padding: 0 24px;
+  white-space: pre;
+  line-height: 2;
+}
+
+em {
+  text-shadow: #DEDEDE 0 1px 1px;
 }
 
 
