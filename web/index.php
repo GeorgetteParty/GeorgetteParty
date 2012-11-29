@@ -9,20 +9,34 @@ use Silex\Application;
 use Symfony\Component\Finder\Finder;
 use dflydev\markdown\MarkdownParser;
 
+// Utils (some monkey coding)
+
+//function build_cache_for_page ($pageId, $pagesPath, $cachePath) {
+//
+//}
+
+function is_localhost () {
+    return (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1','::1',)));
+}
+
 // App
 
 $app = new Application();
 
-if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1','::1',))) {
+if (is_localhost()) {
     $app['debug'] = true;
 }
 
 // Twig
 
-$twig_loader = new Twig_Loader_Filesystem(GP_ROOT_PATH . 'view');
-$twig = new Twig_Environment($twig_loader, array(
-    'cache' => __DIR__ . '/../cache',
+$twig_loader = new Twig_Loader_Filesystem(array(
+    GP_ROOT_PATH . 'view',
+//    GP_ROOT_PATH . 'cache/pages',
 ));
+$twig = new Twig_Environment($twig_loader, array(
+    'cache' => GP_ROOT_PATH . 'cache',
+));
+
 
 // Pages
 
@@ -64,6 +78,5 @@ $app->get('/page/{id}', function (Application $app, $id) use ($twig, $pages) {
 
 })->assert('id', '\d+');
 
-//////////////
 
 $app->run();
