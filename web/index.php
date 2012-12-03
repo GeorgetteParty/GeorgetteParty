@@ -11,10 +11,6 @@ use dflydev\markdown\MarkdownParser;
 
 // Utils (some monkey coding)
 
-//function build_cache_for_page ($pageId, $pagesPath, $cachePath) {
-//
-//}
-
 function is_localhost () {
     return (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1','::1',)));
 }
