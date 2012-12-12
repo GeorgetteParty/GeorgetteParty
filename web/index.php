@@ -18,10 +18,8 @@ function is_localhost () {
 // App
 
 $app = new Application();
+$app['debug'] = is_localhost();
 
-if (is_localhost()) {
-    $app['debug'] = true;
-}
 
 // Twig
 
@@ -55,7 +53,7 @@ $app->get('/porte/{id}', function (Application $app, $id) {
     return $app->redirect('../page/'.$id);
 })->assert('id', '\d+');
 
-// Show a Page
+// Show a Page in the Story
 
 $app->get('/page/{id}', function (Application $app, $id) use ($twig, $pages) {
 
@@ -73,6 +71,25 @@ $app->get('/page/{id}', function (Application $app, $id) use ($twig, $pages) {
     return $page;
 
 })->assert('id', '\d+');
+
+
+// Show a Invitation to a Party
+
+$app->get('/party/{slug}', function (Application $app, $slug) use ($twig) {
+
+    // Find the file
+    $party = file_get_contents(GP_ROOT_PATH . 'party' . DIRECTORY_SEPARATOR . $slug);
+    if (false === $party) $app->abort(404, "Party {$slug} does not exist.");
+
+    // Parse markdown
+    $markdownParser = new MarkdownParser();
+    $party = $markdownParser->transformMarkdown($party);
+
+    $html = $twig->render('party.html.twig', array('party' => $party));
+
+    return $html;
+
+})->assert('slug', '[a-z0-9-]+');
 
 
 $app->run();
